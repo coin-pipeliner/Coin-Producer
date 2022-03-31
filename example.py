@@ -5,12 +5,13 @@ from kafka import KafkaProducer
 from json import dumps
 import sys
 
+
 async def produce(data_num):
     
     producer = KafkaProducer(
         acks = 0,
         compression_type = 'gzip',
-        bootstrap_servers = ['localhost:9091', 'localhost:9092', 'localhost:9093'],
+        bootstrap_servers = ['kafka1:19091', 'kafka2:19092', 'kafka3:19093'],
         value_serializer = lambda x: dumps(x).encode('utf-8')
     )
     uri = 'wss://pubwss.bithumb.com/pub/ws'
@@ -30,7 +31,7 @@ async def produce(data_num):
         for i in range(data_num):
             data = await websocket.recv()
             data = json.loads(data)
-            producer.send('test', value=data)
+            producer.send('BTC_KRW', value=data)
             producer.flush()
             print(data)
 
