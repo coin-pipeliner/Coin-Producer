@@ -1,9 +1,12 @@
+ARG arg
 FROM python:3.8-alpine
 
 WORKDIR /usr/src/app
 
+ARG arg
+
 ENV ENV "dev"
-ENV CODE "KRW-BTC"
+ENV CODE $arg
 
 COPY requirements.txt ./
 
